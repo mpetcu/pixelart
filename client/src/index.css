@@ -5,9 +5,33 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #E5E5E5 !important;
+  background-image:
+    linear-gradient(45deg, #DFDFDF 25%, transparent 25%),
+    linear-gradient(-45deg, #DFDFDF 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #DFDFDF 75%),
+    linear-gradient(-45deg, transparent 75%, #DFDFDF 75%);
+  background-size:20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
 }
+.fix {clear:both}
+canvas {border: 0.4rem solid #FFF; border-radius: 0.3rem }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.art-list {padding: 1.5rem}
+
+.canvas-menu { padding-top: 0.5rem}
+.label {color: #999; font-size: 0.8rem}
+.canvas-menu .colors button {width: 1.7rem; height: 1.7rem; border-radius: 1rem; float: left; margin: .25rem; box-shadow: 0px 0px 2px 1px #DDD; color: #DDD; text-align:center; font-size: .8rem; cursor: pointer; border-width: 0; background-color: transparent; padding: 0px; line-height:0}
+.canvas-menu .colors button.sel { box-shadow: 0px 0px 4px 2px #999; width: 1.9rem; height: 1.9rem; border: 0.1rem solid #EEE; margin: .15rem; }
+.canvas-menu .bgcolors div {width: 1.4rem; height: 1.4rem; border-radius: 1rem; float: left; margin: .2rem .4rem .2rem 0; box-shadow: 0px 0px 2px 1px #DDD; color: #DDD; text-align:center; line-height: 1.3rem; font-size: .6rem; cursor: pointer}
+.canvas-menu .bgcolors div.sel { box-shadow: 0px 0px 5px 1px #777; width: 1.2rem; height: 1.2rem; border: 0.1rem solid #EEE; zoom: 1.2 }
+
+
+.horizontal-slider {height: 1.4rem}
+.horizontal-slider .thumb { background-color: #FFF; height: 1.4rem; width: 3.4rem; text-align: center; font-size: 0.85rem; line-height: 1.4rem; border-radius: 1.4rem; color: #333; border: 1px solid #CCC}
+.horizontal-slider .track { background-color: #EEE; height: .2rem; margin-top: .6rem; border-radius: 4rem}
