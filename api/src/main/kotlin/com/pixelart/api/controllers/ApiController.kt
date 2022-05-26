@@ -1,52 +1,93 @@
 package com.pixelart.api.controllers
 
-import com.pixelart.api.models.Art
+import com.pixelart.api.config.toSlug
+import com.pixelart.api.docs.Art
 import com.pixelart.api.repos.ArtRepository
+import com.pixelart.api.services.ImageService
+import org.bson.types.ObjectId
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
-import java.time.LocalDateTime
+import org.springframework.web.server.ResponseStatusException
 
+@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/api")
-class ApiController {
+class ApiController (val imageService: ImageService) {
 
     @Autowired
     lateinit var artRepository : ArtRepository
 
     @RequestMapping("/list", method = [RequestMethod.GET])
     fun list(): List<Art> {
-        return artRepository.findAll()
+        val all: List<Art> = artRepository.findAll()
+
+        //generate images if not exist
+        for(img in all){
+            imageService.generateImageIfNotExist(img);
+        }
+        return all
     }
 
-    @RequestMapping("/add", method = [RequestMethod.PUT])
+    @RequestMapping("/get", method = [RequestMethod.GET])
+    fun get(
+        @RequestParam slug: String
+    ): Art? {
+        val art = artRepository.findBySlug(slug)
+        if(art.isPresent){
+            return art.get()
+        }
+        throw ResponseStatusException(HttpStatus.NOT_FOUND)
+    }
+
+    @RequestMapping("/add", method = [RequestMethod.POST])
     fun add(
         @RequestBody content: HashMap<String, Any>
-    ): Boolean  {
-        val art = Art(null, content , LocalDateTime.now())
-        artRepository.save(art)
-        return true
+    ): Art?  {
+        var title = "Untitled"
+        var tags = "pixelart"
+        val id = ObjectId()
+
+        if(content.containsKey("title")){
+           title = content["title"] as String
+        }
+        if(content.containsKey("tags")){
+            tags = content["tags"] as String
+        }
+        val slug = (title+' '+id.toHexString()).toSlug()
+
+        val art = Art(id, title, slug, tags, content)
+
+        //regenerate image
+        imageService.refreshImage(art)
+
+        return artRepository.save(art)
     }
 
     @RequestMapping("/update", method = [RequestMethod.PUT])
     fun update(
-        @RequestParam id: Int,
+        @RequestParam slug: String,
         @RequestBody content: HashMap<String, Any>
-    ): Boolean {
-        val artOptional = artRepository.findById(id)
+    ): Art? {
+        val artOptional = artRepository.findBySlug(slug)
         if(artOptional.isPresent){
-            var art: Art = artOptional.get()
+            val art: Art = artOptional.get()
                 art.content = content
             artRepository.save(art)
-            return true
+
+            //regenerate image
+            imageService.refreshImage(art)
+
+            return art
         }
-        return false
+        return null
     }
 
     @RequestMapping("/del", method = [RequestMethod.DELETE])
     fun del(
-        @RequestParam id: Int
+        @RequestParam id: String
     ): Boolean {
-        artRepository.deleteById(id)
+        artRepository.deleteById(ObjectId(id))
         return true
     }
 
