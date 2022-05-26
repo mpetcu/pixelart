@@ -51,7 +51,7 @@ class Draw {
         hi--
         this.cv.ctx.fillStyle = color
         this.cv.ctx.beginPath()
-        this.cv.ctx.rect(wi*this.cv.ws+0.5, hi*this.cv.hs+0.5, this.cv.ws-0.5, this.cv.hs-0.5)
+        this.cv.ctx.rect(wi*this.cv.ws, hi*this.cv.hs, this.cv.ws, this.cv.hs)
         this.cv.ctx.fill()
     }
 

@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Canvas from './list/Canvas.js'
 
 function List(){
     const [data, setData] = useState(null);
@@ -18,28 +19,43 @@ function List(){
 
     if(data){
         //console.log(data);
-        return (<div className="art-list"><Row xs={1} md={2} className="g-4">
-            {data.map(item => <ArtCard key={item.id} title={item.title} />)}
-        </Row></div>);
+        return (<div className="art-list m-3">
+            <Row xs={1} md={2} lg={3} xxl={4} className="g-5">
+                {data.map(item => <ArtCard key={item.id} item={item} title={item.title} content={item.content} />)}
+            </Row>
+        </div>);
     }
     return null
 }
 
-function ArtCard({title}){
+function ArtCard({item, title, content}){
+
+    const maxW = 200;
+    const maxH = 200;
+
+    const cellSize = () => {
+        let c = Math.floor(maxW/content.layoutSize.w > maxH/content.layoutSize.h ? maxH/content.layoutSize.h : maxW/content.layoutSize.w);
+        return c;
+    }
+
     return (
+
         <Col>
-        <Card>
-          <Card.Body>
-            <Card.Title>{title}</Card.Title>
-            <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
-            <Card.Text>
-              Some quick example text to build on the card title and make up the bulk of
-              the card's content.
-            </Card.Text>
-            <Card.Link href="#">Card Link</Card.Link>
-            <Card.Link href="#">Another Link</Card.Link>
-          </Card.Body>
-        </Card>
+            <Card.Link href={'/'+item.slug} >
+                <Card>
+                  <Card.Body>
+                    <Card.Title>{title}</Card.Title>
+                    <Card.Text>
+                        <img src={'/artpic/'+item.slug+'.png'} height="200" />
+                        {/*<Canvas
+                            width={cellSize()*content.layoutSize.w}
+                            height={cellSize()*content.layoutSize.h}
+                            data={content}
+                        />*/}
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+            </Card.Link>
         </Col>
     );
 }

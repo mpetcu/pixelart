@@ -1,10 +1,8 @@
 import {Card, Button, ListGroup, ListGroupItem, Form } from 'react-bootstrap';
 import { BsPlusLg } from "react-icons/bs";
-
+import SaveModal from "./SaveModal.js";
 
 function Menu({data, setLayoutSize, setSelectedColor}){
-
-    //const
 
     return (
         <Card>
@@ -46,14 +44,14 @@ function Menu({data, setLayoutSize, setSelectedColor}){
                   <option value="18x32">18x32 - Medium portret</option>
                   <option value="32x18">32x18 - Medium landscape</option>
 
-                  <option value="20x40">40x40 - Large square</option>
+                  <option value="40x40">40x40 - Large square</option>
                   <option value="27x48">27x48 - Large portret</option>
                   <option value="48x27">48x27 - Large landscape</option>
 
                 </Form.Select>
             </ListGroupItem>
             <ListGroupItem>
-                <Button variant="primary">Save</Button>
+                <SaveModal data={data} />
             </ListGroupItem>
             </ListGroup>
         </Card>
@@ -68,5 +66,6 @@ function Menu({data, setLayoutSize, setSelectedColor}){
         let color = e.target.getAttribute('color')
         setSelectedColor(color)
     }
+
 }
 export default Menu;

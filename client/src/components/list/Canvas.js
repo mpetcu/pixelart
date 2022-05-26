@@ -1,20 +1,15 @@
 import { useRef, useEffect } from 'react'
-import Draw from './Draw.js'
+import Draw from '../editor/Draw.js'
 
 function Canvas({width, height, data, setGrid}){
-
-      let gridColor = '#FFF'
 
       const canvasRef = useRef(null)
 
       const draw = canvas => {
         let draw = new Draw(canvas, data, (grid) => {
-                setGrid(grid)
-            })
-            draw.clear()
-            draw.drawRect(canvas, data.grid)
-            draw.captureMouse()
-            draw.drawLines(gridColor)
+            setGrid(grid)
+        })
+        draw.drawRect(canvas, data.grid)
       }
 
       useEffect(() => {
@@ -22,6 +17,6 @@ function Canvas({width, height, data, setGrid}){
         draw(canvas)
       }, [draw])
 
-      return <canvas ref={canvasRef} width={width} height={height} data={data} className="editor" />
+      return <canvas ref={canvasRef} width={width} height={height} data={data} />
 }
 export default Canvas

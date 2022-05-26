@@ -1,5 +1,4 @@
 import logo from './logo.svg';
-import './App.css';
 import NavbarArt from'./components/Navbar.js';
 import BodyRouter from './components/BodyRouter.js';
 
