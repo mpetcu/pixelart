@@ -17,7 +17,7 @@ data class Art (
     var title: String,
     @Indexed(unique=true)
     var slug: String, //composed from title and id
-    var tags: String,
+    var tags: ArrayList<Any>,
     var content: HashMap<String, Any>,
     val created_at: LocalDateTime = LocalDateTime.now()
 )

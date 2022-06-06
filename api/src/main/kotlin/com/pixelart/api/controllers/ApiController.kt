@@ -45,14 +45,14 @@ class ApiController (val imageService: ImageService) {
         @RequestBody content: HashMap<String, Any>
     ): Art?  {
         var title = "Untitled"
-        var tags = "pixelart"
+        var tags : ArrayList<Any> = arrayListOf()
         val id = ObjectId()
 
         if(content.containsKey("title")){
            title = content["title"] as String
         }
         if(content.containsKey("tags")){
-            tags = content["tags"] as String
+            tags = content["tags"] as ArrayList<Any>
         }
         val slug = (title+' '+id.toHexString()).toSlug()
 

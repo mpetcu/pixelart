@@ -40,13 +40,15 @@ class ImageService {
 
             for ((key, color) in art.content["grid"] as Map<String, String>) {
                 val splited = key.split('_');
-                g2d.setColor(Color.decode(color));
-                g2d.fillRect(
-                    splited[1].toInt() * cel - cel,
-                    splited[0].toInt() * cel - cel,
-                    cel,
-                    cel
-                );
+                if(color.length == 7) {
+                    g2d.setColor(Color.decode(color));
+                    g2d.fillRect(
+                        splited[1].toInt() * cel - cel,
+                        splited[0].toInt() * cel - cel,
+                        cel,
+                        cel
+                    );
+                }
             }
 
             g2d.dispose();
