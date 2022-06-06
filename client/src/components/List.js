@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Canvas from './list/Canvas.js'
 
 function List(){
     const [data, setData] = useState(null);
@@ -30,28 +29,14 @@ function List(){
 
 function ArtCard({item, title, content}){
 
-    const maxW = 200;
-    const maxH = 200;
-
-    const cellSize = () => {
-        let c = Math.floor(maxW/content.layoutSize.w > maxH/content.layoutSize.h ? maxH/content.layoutSize.h : maxW/content.layoutSize.w);
-        return c;
-    }
-
     return (
-
         <Col>
             <Card.Link href={'/'+item.slug} >
                 <Card>
-                  <Card.Body>
+                  <Card.Body style="bg">
                     <Card.Title>{title}</Card.Title>
                     <Card.Text>
-                        <img src={'/artpic/'+item.slug+'.png'} height="200" />
-                        {/*<Canvas
-                            width={cellSize()*content.layoutSize.w}
-                            height={cellSize()*content.layoutSize.h}
-                            data={content}
-                        />*/}
+                        <img alt={title} src={'/artpic/'+item.slug+'.png'} width="100%" />
                     </Card.Text>
                   </Card.Body>
                 </Card>

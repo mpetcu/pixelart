@@ -7,37 +7,56 @@ body {
   -moz-osx-font-smoothing: grayscale;
   user-select: none;
 }
+a.hashtag {font-weight: bold; display: inline-block; text-decoration:none; padding-right: 1rem; font-size: 0.85rem; color: #999}
 .fix {clear:both}
-canvas.editor {border: 1px solid #DDD; border-radius: 0.3rem;
-   background-color: #E5E5E5 !important;
+canvas.editor {
+   background-color: #F2F2F2 !important;
    background-image:
-     linear-gradient(45deg, #DFDFDF 25%, transparent 25%),
-     linear-gradient(-45deg, #DFDFDF 25%, transparent 25%),
-     linear-gradient(45deg, transparent 75%, #DFDFDF 75%),
-     linear-gradient(-45deg, transparent 75%, #DFDFDF 75%);
-   background-size:10px 10px;
-   background-position: 0 0, 0 5px, 5px -5px, -5px 0px}
+     linear-gradient(45deg, #E8E8E8 25%, transparent 25%),
+     linear-gradient(-45deg, #E8E8E8 25%, transparent 25%),
+     linear-gradient(45deg, transparent 75%, #E8E8E8 75%),
+     linear-gradient(-45deg, transparent 75%, #E8E8E8 75%);
+   background-size:8px 8px;
+   background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
+   display: block; cursor: none;
+   }
+h1.editor-title{font-size: 1.5rem; overflow: hidden}
 
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
 
 .art-list {}
 .art-show {}
-.art-show img.art{max-height: 60vh; max-width: 60vw}
-.editor-menu {width: 25vw; min-width: 17rem !important; max-width: 29rem !important; float: left; margin: 1rem 0 0 1rem;
-    user-select: none;
-}
-.canvas-editor { float: left; width: auto; margin: 1rem 0 0 1rem}
+.art-show img.art{max-height: 62vh; max-width: 62vw}
+.editor-menu {width: 20vw; min-width: 17rem !important; max-width: 23rem !important; float: left; margin: 1rem 0 0 1rem;user-select: none}
+.canvas-editor {float: left; width: auto; margin: 1rem 0 0 1rem; position: relative}
+.canvas-zoom {background-color: #F8F8F8;overflow: scroll; border: 1px solid #CCC; border-radius:.25rem}
+.canvas-zoom .dot {position: absolute; border: 1px solid #FFF; box-shadow: 0 0 1px 1px #000; top: 0; left: 0px; pointer-events: none; display: none }
+.canvas-undermenu {padding: .25rem 0; color: #999; font-size: .9rem}
+.canvas-undermenu .coordinates {float: left}
+.canvas-undermenu .coordinates span {width: 6rem; display: inline-block}
+.canvas-undermenu .zoom {float: right}
+.canvas-undermenu .zoom input[type=range] {display: inline-block; width:10rem; padding: 0 1rem; float: left}
+.canvas-undermenu .zoom div {float: left}
+.canvas-undermenu .zoom div.zval {width: 2rem}
+.color-overlay .add { font-size: 2.5rem; float: right; margin-left: 0.5rem; cursor: pointer; color: #CCC}
+.color-overlay .dismiss { font-size: 2.5rem; float: right; color: red; cursor: pointer}
+.color-overlay .preview { font-size: 2.5rem; float: left}
+.color-popover {box-shadow: 0 0 25px 10px rgba(0,0,0,0.2);}
 
 .canvas-menu { padding-top: 0.5rem}
-.label {color: #999; font-size: 0.8rem}
-.canvas-menu .colors button {width: 1.7rem; height: 1.7rem; border-radius: 1rem; float: left; margin: .25rem; box-shadow: 0px 0px 2px 1px #DDD; color: #DDD; text-align:center; font-size: .8rem; cursor: pointer; border-width: 0; background-color: transparent; padding: 0px; line-height:0}
-.canvas-menu .colors button.sel { box-shadow: 0px 0px 3px 1px #999; width: 1.9rem; height: 1.9rem; border: 0.1rem solid #EEE; margin: .15rem; }
-.canvas-menu .bgcolors div {width: 1.4rem; height: 1.4rem; border-radius: 1rem; float: left; margin: .2rem .4rem .2rem 0; box-shadow: 0px 0px 2px 1px #DDD; color: #DDD; text-align:center; line-height: 1.3rem; font-size: .6rem; cursor: pointer}
-.canvas-menu .bgcolors div.sel { box-shadow: 0px 0px 3px 1px #999; width: 1.2rem; height: 1.2rem; border: 0.1rem solid #EEE; zoom: 1.2 }
+.canvas-menu .colors span, .canvas-menu .colors button {width: 2.5rem; height: 2.5rem; border-radius: 2rem; float: left; margin: 0 1rem 1rem 0; box-shadow: 0px 0px 1px 1px #DDD; color: #555; text-align:center; font-size: 1.5rem; cursor: pointer; border-width: 0px ; padding: 0px; line-height:0}
+.canvas-menu .colors span .sel { color: #eee; position: relative; top: .3rem; font-size: 2.1rem }
+.canvas-menu .colors span .del {font-size: 1.5rem;  color: red; position: relative; background-color: #FFF; border-radius: 1rem; top: -.5rem; left: 1rem; position: relative; display: block}
+.canvas-menu .colors span:hover .del { display: block}
+.canvas-menu .colors button.eraser { font-size: 1.4rem !important}
+.canvas-menu .colors button.selDel { color: #F00 }
+
+.menu-actions svg { color: #555; font-size: 2.7rem; padding: .6rem; border-radius: .5rem; margin: .25rem .5rem .25rem 0 }
+.menu-actions svg:not(.disabled):hover { color: #555; background-color: #F5F5F5; cursor: pointer; box-shadow: 0px 0px 1px 1px #EEE;}
+.menu-actions svg.bg { color: #555; background-color: #F2F2F2; cursor: pointer }
+.menu-actions svg.sel { color: #777; background-color: #E6E6E6; box-shadow: 0px 0px 1px 1px #DDD;}
+.menu-actions svg:not(.disabled):active { transform: scale(0.95); background-color: #EEE}
+.menu-actions svg.disabled { cursor: default !important; color: #AAA}
+
 
 .horizontal-slider {height: 1.4rem}
 .horizontal-slider .thumb { background-color: #FFF; height: 1.4rem; width: 3.4rem; text-align: center; font-size: 0.85rem; line-height: 1.4rem; border-radius: 1.4rem; color: #333; border: 1px solid #CCC}

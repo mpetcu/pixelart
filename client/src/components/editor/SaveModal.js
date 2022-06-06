@@ -1,12 +1,12 @@
 import {useState} from 'react';
-import {Button, Modal, ModalBody, ModalHeader, ModalFooter, ModalTitle, Form} from "react-bootstrap";
+import {Button, Modal, Form} from "react-bootstrap";
+import { BsFileEarmarkArrowUp } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import NameAndTagsFormFields from './NameAndTagsFormFields.js';
 
-function SaveModal({data}){
+export default function SaveModal({data, setTitle, setTags}){
 
   const [modal, setModal] = useState(false);
-  const [title, setTitle] = useState(data.title??'')
-  const [tags, setTags] = useState(data.tags??'')
   const navigate = useNavigate();
 
   const showModal = () => {
@@ -17,26 +17,8 @@ function SaveModal({data}){
     setModal(false);
   };
 
-  function changeTitle(e){
-    data.title = e.target.value
-    setTitle(data.title);
-  }
-
-  function changeTags(e){
-    data.tags = e.target.value
-    setTags(data.tags)
-  }
-
-  function isDisabled(){
-    console.log("isDisabled");
-    if(title.length > 3 && tags.length > 3){
-        return false
-    }
-    return true
-  }
-
   function saveData(e){
-      console.log(data);
+
       const requestOptions = {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -48,29 +30,28 @@ function SaveModal({data}){
                     console.log(returnData);
                     navigate('/'+returnData.slug)
               });
+
   }
 
   return (
     <>
+      <Button variant="outline-danger" onClick={showModal}>Cancel</Button>{' '}
       <Button variant="primary" onClick={showModal}>Save</Button>
       <Modal show={modal} onHide={hideModal}>
+        <Modal.Header closeButton>
+            <Modal.Title>
+                <BsFileEarmarkArrowUp style={{fontSize: '2.2rem', float: 'left', paddingRight: '.5rem' }}/> Save as
+            </Modal.Title>
+        </Modal.Header>
         <Modal.Body>
             <Form>
-              <Form.Group className="mb-4">
-                <Form.Label>Save as</Form.Label>
-                <Form.Control type="text" placeholder="Untitled art" value={title} onChange={changeTitle} size="lg" />
-              </Form.Group>
-              <Form.Group className="mb-4">
-                <Form.Control type="text" placeholder="#Hashtags here" value={tags} onChange={changeTags} />
-              </Form.Group>
+                <NameAndTagsFormFields data={data} setTitle={setTitle} setTags={setTags} />
             </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={hideModal} >Cancel</Button>
-          <Button onClick={saveData} disabled={isDisabled()} >Save and publish</Button>
+          <Button onClick={saveData} type="submit" size="lg" >Save</Button>
         </Modal.Footer>
       </Modal>
     </>
   )
 }
-export default SaveModal;

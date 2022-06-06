@@ -7,10 +7,10 @@ import Show from './Show.js';
 function BodyRouter () {
     return (
       <Routes>
-        <Route path='/' element={ <List /> }></Route>
-        <Route path='/editor' element={ <Editor /> }></Route>
-        <Route path='/editor/:slug' element={ <Editor /> }></Route>
-        <Route path='/:slug' element={ <Show /> }></Route>
+        <Route path='/' element={ <List/> }></Route>
+        <Route path='/editor' element={ <Editor/> }></Route>
+        <Route path='/editor/:slug' element={ <Editor/> }></Route>
+        <Route path='/:slug' element={ <Show/> }></Route>
       </Routes>
     )
 }
